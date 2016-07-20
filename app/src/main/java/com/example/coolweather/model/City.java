@@ -5,24 +5,24 @@ package com.example.coolweather.model;
  */
 public class City {
     private int id;
-    private String name;
-    private String code;
-    private int provinceId;
+    private String city_name;
+    private String city_code;
+    private String province_code;
 
-    public int getProvinceId() {
-        return provinceId;
+    public String getCity_code() {
+        return city_code;
     }
 
-    public void setProvinceId(int provinceId) {
-        this.provinceId = provinceId;
+    public void setCity_code(String city_code) {
+        this.city_code = city_code;
     }
 
-    public String getCode() {
-        return code;
+    public String getCity_name() {
+        return city_name;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setCity_name(String city_name) {
+        this.city_name = city_name;
     }
 
     public int getId() {
@@ -33,11 +33,11 @@ public class City {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getProvince_code() {
+        return province_code;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProvince_code(String province_code) {
+        this.province_code = province_code;
     }
 }

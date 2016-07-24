@@ -3,6 +3,7 @@ package com.example.coolweather.db;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.coolweather.model.City;
@@ -25,7 +26,9 @@ import java.util.List;
  */
 public class CoolWeatherDB {
     public static final String DB_NAME = "cool_weather";
+    public static final String DB_PATH = "/data/data/com.example.coolweather/databases/";
     public static final int VERSION = 1;
+
     private static CoolWeatherDB coolWeatherDB;
     private SQLiteDatabase db;
 
@@ -41,6 +44,24 @@ public class CoolWeatherDB {
         return coolWeatherDB;
     }
 
+    public static Boolean checkDB() {
+        SQLiteDatabase db = null;
+        String dbFileName = DB_PATH + DB_NAME;
+        try {
+            db = SQLiteDatabase.openDatabase(dbFileName,null,SQLiteDatabase.OPEN_READONLY);
+        } catch (SQLException e) {
+
+        } finally {
+            if (db != null) {
+                db.close();
+            }
+            return db == null?false:true;
+        }
+
+
+    }
+
+
     public void saveProvince(Province province) {
 
         if (province != null) {
@@ -53,7 +74,7 @@ public class CoolWeatherDB {
         }
     }
 
-    public List<Province> loadProvince() {
+    public List<Province> loadProvince() throws Exception{
         Cursor cursor = db.query("Province", null, null, null, null, null, null);
        List<Province> list = new ArrayList<Province>();
         if(cursor.moveToFirst()) {
@@ -81,7 +102,7 @@ public class CoolWeatherDB {
         }
     }
 
-    public List<City> loadCity(String provinceCode) {
+    public List<City> loadCity(String provinceCode) throws Exception{
         Cursor cursor = db.query("City", null, "province_code = ?",
                 new String[]{provinceCode}, null, null, null);
         List<City> list = new ArrayList<City>();
@@ -110,7 +131,7 @@ public class CoolWeatherDB {
         }
     }
 
-    public List<County> loadCounty(String cityCode) {
+    public List<County> loadCounty(String cityCode) throws Exception{
         Cursor cursor = db.query("County", null, "city_code = ?", new String[] {cityCode}, null, null, null);
         List<County> list = new ArrayList<County>();
         if (cursor.moveToFirst()) {

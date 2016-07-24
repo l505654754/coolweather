@@ -22,12 +22,14 @@ public class HttpUtil {
                     connection.setRequestMethod("GET");
                     connection.setConnectTimeout(8000);
                     connection.setReadTimeout(8000);
+                    connection.setRequestProperty("apikey","49ed4997626afc1e0fdfc995849f3e5a");
                     InputStream in = connection.getInputStream();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(in));
                     String line = "";
                     StringBuffer response = new StringBuffer();
                     while ((line = reader.readLine()) != null) {
                         response.append(line);
+                        response.append("\r\n");
                     }
                     if (callbackListener != null) {
                         callbackListener.onFinish(response.toString());
